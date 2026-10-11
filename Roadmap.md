@@ -1,0 +1,82 @@
+# Roadmap do Projeto: Sistema de Gerenciamento de Aplicativos
+
+Este documento acompanha o progresso e o status de cada fase do projeto. Cada tarefa só é marcada como concluída após verificação e testes.
+
+---
+
+## 📌 Lista de Tarefas (Progresso Geral)
+
+- [x] **1. Análise dos requisitos**
+  - Mapeamento completo dos requisitos do Backend (Node.js/Express/MongoDB Atlas) e Frontend (HTML/CSS/JS).
+  - Regras de negócio: CRUD, validações, formato de preços (R$ 19,90 / Gratuito), URL de fotos com preview, filtros e busca.
+- [x] **2. Planejamento da arquitetura**
+  - Definição da divisão em dois repositórios independentes: `aplicativos-api` e `aplicativos-frontend`.
+  - Arquitetura serverless para Vercel no Backend (`/api/index.js` exportando o app Express).
+  - Centralização de configuração de API no Frontend (`js/api.js`).
+- [x] **3. Definição do tema visual**
+  - Identidade visual **AppNova — Catálogo & Descoberta de Softwares**.
+  - Paleta moderna em modo escuro com glassmorphism: Deep Canvas (`#090D16`), Card Dark (`#151B2E`), Acentos Indigo/Violeta/Cyan (`#6366F1`, `#8B5CF6`, `#06B6D4`), Verde Esmeralda (`#10B981`), Coral (`#F43F5E`).
+  - Tipografia: Google Fonts (Plus Jakarta Sans & Inter).
+  - Micro-interações, transições suaves, badges de status e preço.
+- [ ] **4. Criação dos repositórios GitHub**
+  - Criação de `aplicativos-api` no GitHub.
+  - Criação de `aplicativos-frontend` no GitHub.
+  - Inicialização do Git local com `.gitignore`, READMEs e commits iniciais.
+- [ ] **5. Configuração do MongoDB**
+  - Configuração do Mongoose com pool otimizado para ambientes serverless (Vercel) e locais.
+  - Tratamento de reconexão e cache de conexão (`cached.conn`).
+  - Criação de `.env.example` e documentação de configuração no MongoDB Atlas.
+- [ ] **6. Desenvolvimento do Backend**
+  - Estrutura completa de pastas (`src/config`, `src/models`, `src/controllers`, `src/routes`, `src/middlewares`, `api/`).
+  - Modelo Mongoose `Aplicativo` com validações rigorosas (nome, categoria, descricao, preco >= 0, foto).
+  - Middleware centralizado de tratamento de erros (`errorHandler.js`).
+  - Configuração de CORS flexível (desenvolvimento e produção).
+- [ ] **7. Implementação dos endpoints**
+  - `GET /api/health` — verificação de saúde e estado do banco de dados.
+  - `GET /api/aplicativos` — listagem com busca por texto (`busca`) e filtro por categoria (`categoria`).
+  - `GET /api/aplicativos/:id` — detalhe por ID com validação de ObjectId do MongoDB.
+  - `POST /api/aplicativos` — cadastro com validação de campos obrigatórios e preços.
+  - `PUT /api/aplicativos/:id` — atualização completa/parcial validada.
+  - `DELETE /api/aplicativos/:id` — exclusão por ID com retorno sem conteúdo/confirmação.
+- [ ] **8. Testes automatizados do Backend**
+  - Suíte de testes com Jest e Supertest utilizando MongoDB em memória (`mongodb-memory-server`) para validação isolada, rápida e confiável.
+  - Testes cobrindo: health check, CRUD completo, filtros, buscas, validação de preços, erros 400, 404 e 500.
+- [ ] **9. Desenvolvimento do Frontend**
+  - Estrutura de arquivos: `index.html`, `css/style.css`, `js/app.js`, `js/api.js`.
+  - Cabeçalho moderno com logo, barra de estatísticas/status da API e botão de novo aplicativo.
+  - Seção Hero de apresentação e estatísticas do catálogo.
+  - Grade de cartões de aplicativos com imagem de capa, badge de categoria, descrição truncada elegante, preço formatado e botões de ação.
+  - Modal dinâmico para Cadastro e Edição com pré-visualização de imagem em tempo real e validações de formulário.
+  - Modal de confirmação de exclusão com aviso de segurança.
+  - Sistema de notificações Toast (sucesso, aviso, erro).
+  - Estado de carregamento (skeletons / spinners) e estado vazio ilustrado com botão de resetar filtros.
+- [ ] **10. Implementação de pesquisa e filtros**
+  - Campo de busca instantânea com debounce por nome/descrição.
+  - Barra de seleção por pílulas de categorias dinâmicas/rápidas.
+  - Sincronização entre filtros e parâmetros da API.
+- [ ] **11. Integração com a API**
+  - Módulo `js/api.js` com tratamento de erros de rede, timeout e mensagens amigáveis.
+  - Alternância facilitada de ambiente (Local / Produção Vercel).
+- [ ] **12. Testes completos da interface e ponta a ponta**
+  - Validação de responsividade (mobile, tablet, desktop).
+  - Testes de CRUD completo diretamente na interface.
+  - Teste de comportamento offline ou com API indisponível.
+- [ ] **13. Revisão de segurança e acessibilidade**
+  - Sanitização de entradas, cabeçalhos de segurança, boas práticas de CORS.
+  - Acessibilidade: atributos ARIA em modais e botões, contraste de cores aprovado, navegação por teclado.
+- [ ] **14. Publicação do Backend na Vercel**
+  - Configuração do `vercel.json` para serverless express.
+  - Deploy da API e obtenção do domínio público.
+- [ ] **15. Publicação do Frontend na Vercel**
+  - Deploy da interface estática e obtenção do domínio público.
+- [ ] **16. Configuração de variáveis de ambiente e CORS**
+  - Configuração de `MONGODB_URI` no painel da Vercel.
+  - Configuração da origem do Frontend no CORS do Backend.
+  - Configuração da URL da API de produção no Frontend.
+- [ ] **17. Testes em produção**
+  - Validação dos endpoints em produção via domínio da Vercel.
+  - Validação da interface conectada à API em produção.
+- [ ] **18. Documentação e entrega final**
+  - `README.md` detalhado em ambos os repositórios.
+  - `api.md` completo com documentação técnica de todos os endpoints e exemplos de requisição.
+  - Relatório final com links dos repositórios GitHub, URLs públicas da Vercel e resultados de testes.
